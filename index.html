@@ -101,7 +101,7 @@ canvas#game{position:absolute;inset:0;width:100%;height:100%;image-rendering:pix
 <div id="stage">
   <canvas id="game"></canvas>
 
-  <button id="mute" type="button">Ton an</button>
+  <button id="mute" type="button">Ton aus</button>
 
   <div id="title">
     <div class="head">
@@ -234,7 +234,7 @@ function resize() {
 addEventListener("resize", resize);
 
 /* ---------- Audio ---------- */
-let AC = null, muted = true;
+let AC = null, muted = false;
 function ac() {
   if (!AC) { try { AC = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) {} }
   if (AC && AC.state === "suspended") AC.resume();
@@ -380,7 +380,9 @@ function showEnd() {
 $("end").addEventListener("pointerdown", e => e.stopPropagation());
 $("again").addEventListener("click", e => {
   e.stopPropagation(); $("end").hidden = true; confetti = []; floats = [];
-  bot.on = false; state = "title"; $("title").hidden = false; dist = 0;
+  resizeHero(); hero.y = 0; hero.vy = 0;
+  bot.on = true; bot.x = heroX + 26; bot.y = groundY - 74;
+  startRun();
 });
 $("startBtn").addEventListener("pointerdown", e => e.stopPropagation());
 $("startBtn").addEventListener("click", e => { e.stopPropagation(); start(); });
@@ -437,7 +439,7 @@ function update(dt) {
         if (!e.hit) {
           e.x -= BUG_WALK * dt;
           if (sx < heroX + 20 && sx + 14 > heroX + 4 && hero.y > -12) {
-            e.hit = true; e.vy = -150; bugs++; sfx.bug(); if (!reduced) shake = 0.18;
+            e.hit = true; e.vy = -150; bugs++; sfx.bug(); if (navigator.vibrate) navigator.vibrate(40); if (!reduced) shake = 0.18;
             floats.push({ t: QUIPS[(bugs - 1) % QUIPS.length], x: heroX + 4, y: groundY - 40, life: 1.2 });
           }
         } else { e.dx += 70 * dt; e.vy += 500 * dt; e.dy += e.vy * dt; }
@@ -523,7 +525,13 @@ function draw() {
   if (state !== "end") {
     const running = (state === "run" || state === "outro") && hero.y === 0;
     const img = hero.y < 0 ? heroB : running ? (Math.floor(time * 10) % 2 ? heroA : heroB) : heroA;
-    ctx.drawImage(img, Math.round(heroX), Math.round(groundY - 32 + hero.y));
+    const hx = Math.round(heroX), hy = Math.round(groundY - 32 + hero.y);
+    ctx.drawImage(img, hx, hy);
+    for (let i = 0; i < 6; i++) {
+      ctx.fillStyle = i % 2 ? "#E98074" : "#FFD166";
+      ctx.fillRect(hx + 12 - i, hy - 9 + i * 2, i * 2 + 2, 2);
+    }
+    ctx.fillStyle = "#7FE7C4"; ctx.fillRect(hx + 11, hy - 12, 4, 3);
   }
 
   if (bot.on && state !== "end") {
