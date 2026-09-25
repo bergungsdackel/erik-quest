@@ -85,7 +85,11 @@ canvas#game{position:absolute;inset:0;width:100%;height:100%;image-rendering:pix
 .meta{font-size:20px;line-height:1.05;margin:0 0 20px;color:var(--dusk)}
 .actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
 
-#mute{position:absolute;top:10px;right:10px;font-family:var(--pixel);font-size:9px;padding:8px 10px;background:var(--ink);color:var(--paper);border:3px solid var(--paper);cursor:pointer;z-index:5}
+#mute .off{display:none}
+#mute.muted .on{display:none}
+#mute.muted .off{display:inline}
+#mute svg{display:block}
+#mute{position:absolute;top:10px;right:10px;line-height:0;padding:6px;background:var(--ink);color:var(--paper);border:3px solid var(--paper);cursor:pointer;z-index:5}
 #mute:focus-visible{outline:3px solid var(--mint);outline-offset:2px}
 
 @keyframes blink{50%{opacity:0}}
@@ -101,7 +105,13 @@ canvas#game{position:absolute;inset:0;width:100%;height:100%;image-rendering:pix
 <div id="stage">
   <canvas id="game"></canvas>
 
-  <button id="mute" type="button">Ton aus</button>
+  <button id="mute" type="button" aria-label="Ton ist an. Tippen zum Stummschalten.">
+    <svg viewBox="0 0 16 16" width="22" height="22" shape-rendering="crispEdges" aria-hidden="true">
+      <path fill="currentColor" d="M2 6h3v4H2zM5 5h1v6H5zM6 4h1v8H6zM7 3h1v10H7z"/>
+      <g class="on" fill="currentColor"><path d="M10 6h1v4h-1zM12 4h1v1h-1zM13 5h1v6h-1zM12 11h1v1h-1z"/></g>
+      <g class="off" fill="#E98074"><path d="M10 5h1v1h-1zM11 6h1v1h-1zM12 7h2v2h-2zM14 6h1v1h-1zM15 5h1v1h-1zM11 9h1v1h-1zM10 10h1v1h-1zM14 9h1v1h-1zM15 10h1v1h-1z"/></g>
+    </svg>
+  </button>
 
   <div id="title">
     <div class="head">
@@ -260,7 +270,8 @@ let beatT = 0, beat = 0;
 $("mute").addEventListener("pointerdown", e => e.stopPropagation());
 $("mute").addEventListener("click", e => {
   e.stopPropagation(); muted = !muted; if (!muted) ac();
-  $("mute").textContent = muted ? "Ton an" : "Ton aus";
+  $("mute").classList.toggle("muted", muted);
+  $("mute").setAttribute("aria-label", muted ? "Ton ist aus. Tippen zum Einschalten." : "Ton ist an. Tippen zum Stummschalten.");
 });
 
 /* ---------- Zustand ---------- */
