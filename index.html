@@ -153,7 +153,7 @@ canvas#game{position:absolute;inset:0;width:100%;height:100%;image-rendering:pix
 const CONFIG = {
   name: "Erik",
   months: 6,
-  from: "Mateusz, Aaron, Chris und Tim",
+  from: "Aaron, Chris, Mateusz und Tim",
   link: ""
 };
 (() => {
@@ -277,14 +277,19 @@ const QUIPS = ["+1 Bug", "Feature!", "Läuft bei mir", "Ist gewollt", "NullRefer
 
 const lines = [
   { who: "Erzähler", k: "erz", t: `Im Jahr 2026 lebte ein Held namens ${N}.` },
-  { who: "Erzähler", k: "erz", t: "Er hatte keinen Job, dafür jede Menge Zeit und zu jedem Videospiel eine Meinung." },
+  { who: "Erzähler", k: "erz", t: "Er hatte keinen Job, dafür jede Menge Zeit und zu jedem Thema eine besondere Meinung." },
   { who: "Erzähler", k: "erz", t: "Eines Nachts fiel etwas vom Himmel.", act: "robot" },
   { who: "KI", k: "ki", t: `Hi ${N}. Ich bin eine KI und kann programmieren.` },
   { who: N, k: "held", t: "Kann ich auch." },
   { who: "KI", k: "ki", t: "Nein." },
   { who: "KI", k: "ki", t: "Aber zusammen können wir Spiele bauen. Deine Freunde haben mich für dich angeheuert." },
   { who: "KI", k: "ki", t: `${CONFIG.from} haben zusammengelegt. Freundschaft ist unbezahlbar, ich leider nicht.` },
-  { who: "KI", k: "ki", t: "Aber erst musst du dich beweisen: Sammel die drei Geschenke ein. Zum Springen tippst du auf den Bildschirm oder drückst die Leertaste." },
+  { who: "Erzähler", k: "erz", t: "Kurz hatten sie überlegt, dir ein neues Spiel zu schenken." },
+  { who: "Erzähler", k: "erz", t: "Aber dann wärst du wieder zwei Monate verschwunden. Also lieber etwas Sinnvolles: Diesmal baust du selbst eins." },
+  { who: N, k: "held", t: "Oh nein. Etwas Sinnvolles." },
+  { who: "KI", k: "ki", t: "Keine Sorge, es macht trotzdem Spaß. Meistens." },
+  { who: "KI", k: "ki", t: "Die drei Geschenke liegen hier irgendwo herum. Sammel sie ein." },
+  { who: "KI", k: "ki", t: "Zum Springen tippst du auf den Bildschirm oder drückst die Leertaste." },
   { who: "KI", k: "ki", t: "Bugs darfst du auch einsammeln. Machen echte Entwickler den ganzen Tag." }
 ];
 const GIFT_TEXT = [
@@ -365,7 +370,7 @@ function showEnd() {
     if (i === 1) { const n = document.createElement("dd"); n.className = "note"; n.textContent = note; $("stats").append(n); }
   });
   const credits = [["Hauptrolle", N], ["Game Design", "eine KI"], ["Programmierung", "dieselbe KI"],
-    ["Qualitätssicherung", "niemand"], ["Finanzierung", CONFIG.from], ["Kundendienst", "alle vier, rund um die Uhr (fast)"], ["Catering", "Energy Drinks"],
+    ["Qualitätssicherung", "niemand"], ["Finanzierung", CONFIG.from], ["Kundendienst", "alle vier, rund um die Uhr (fast)"], ["Catering", "Energy Drinks"], ["Nicht im Paket", "neue Spiele, du baust ja jetzt selbst eins"],
     ["Besonderer Dank", "dir, fürs Durchspielen"]];
   $("roll").innerHTML = "";
   credits.forEach(([a, b]) => {
