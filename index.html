@@ -289,7 +289,7 @@ const lines = [
 ];
 const GIFT_TEXT = [
   { t: `Claude Pro für ${CONFIG.months} Monate`, d: "Inklusive Claude Code. Du beschreibst dein Spiel, die KI schreibt den Code. Verstehen solltest du ihn trotzdem, dafür sorgen wir." },
-  { t: "Vier Telefonjoker", d: "Vier Leute, die hinter dir stehen. Zwei davon wissen sogar, wovon sie reden. Wenn du irgendwo nicht weiterkommst, meld dich einfach. Pizza ist Verhandlungssache." },
+  { t: "Vier Telefonjoker", d: "Vier Leute, die hinter dir stehen. Ob Technik, Motivation oder einfach jemand zum Reden: Wenn du irgendwo nicht weiterkommst, meld dich. Pizza ist Verhandlungssache." },
   { t: "Ein Zockabend", d: "Sobald dein erstes Spiel fertig ist, egal wie klein, zocken wir es zusammen. Danach gibt es ehrliches Feedback. Sehr ehrliches. Mit Punkten." }
 ];
 
@@ -365,7 +365,7 @@ function showEnd() {
     if (i === 1) { const n = document.createElement("dd"); n.className = "note"; n.textContent = note; $("stats").append(n); }
   });
   const credits = [["Hauptrolle", N], ["Game Design", "eine KI"], ["Programmierung", "dieselbe KI"],
-    ["Qualitätssicherung", "niemand"], ["Finanzierung", CONFIG.from], ["Kundendienst", "alle vier, davon zwei mit Ahnung"], ["Catering", "Energy Drinks"],
+    ["Qualitätssicherung", "niemand"], ["Finanzierung", CONFIG.from], ["Kundendienst", "alle vier, rund um die Uhr (fast)"], ["Catering", "Energy Drinks"],
     ["Besonderer Dank", "dir, fürs Durchspielen"]];
   $("roll").innerHTML = "";
   credits.forEach(([a, b]) => {
